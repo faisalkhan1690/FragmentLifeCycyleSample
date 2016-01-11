@@ -1,10 +1,9 @@
 package faisal.fragmentlifecycylesample;
 
-import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnFragmentTwo;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
     private FragmentOne fragmentOne;
-    private FragmentTwo fragmentTwo;
 
 
     @Override
@@ -39,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentOne=new FragmentOne();
-        fragmentTransaction.add(R.id.container,fragmentOne);
-        fragmentTransaction.commit();
+        fragmentOne =new FragmentOne();
+//        fragmentTransaction.add(R.id.container,fragmentOne);
+//        fragmentTransaction.commit();
     }
 
     @Override
@@ -85,23 +82,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch(v.getId()){
             case R.id.btn_fragment_one:
-                if(fragmentOne==null){
-                    fragmentOne=new FragmentOne();
-                }
-                fragmentTransaction=fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, fragmentOne);
-                fragmentTransaction.commit();
-                break;
+
+//                fragmentTransaction=fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container, fragmentOne);
+//                fragmentTransaction.commit();
+//                break;
 
             case R.id.btn_fragment_two:
-                if(fragmentTwo==null){
-                    fragmentTwo=new FragmentTwo();
-                }
-                fragmentTransaction=fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container,fragmentTwo);
-                fragmentTransaction.commit();
-                break;
+//
+//                fragmentTransaction=fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container,fragmentTwo);
+//                fragmentTransaction.commit();
+//                break;
 
         }
     }
+
 }
