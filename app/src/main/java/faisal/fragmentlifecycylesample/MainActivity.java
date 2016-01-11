@@ -12,14 +12,15 @@ import android.widget.Button;
  * This class will show you which method will invoked and in which sequence when fragment changes his state.
  * You can check in Debug----Faisal Khan
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener ,FragmentTwo.OnFragmentTwoInteractionListener,FragmentOne.OnFragmentOneInteractionListener {
 
     private String TAG=MainActivity.class.getSimpleName();
     private Button btnFragmentOne;
     private Button btnFragmentTwo;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private FragmentOne fragmentOne;
+    private String dataFromFragmentOne;
+    private String dataFromFragmentTwo;
 
 
     @Override
@@ -36,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentOne =new FragmentOne();
-//        fragmentTransaction.add(R.id.container,fragmentOne);
-//        fragmentTransaction.commit();
+        fragmentTransaction.add(R.id.container,new FragmentOne());
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -83,19 +83,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()){
             case R.id.btn_fragment_one:
 
-//                fragmentTransaction=fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.container, fragmentOne);
-//                fragmentTransaction.commit();
-//                break;
+                fragmentTransaction=fragmentManager.beginTransaction();
+                if(dataFromFragmentTwo!=null){
+                    fragmentTransaction.replace(R.id.container, FragmentOne.newInstance(dataFromFragmentTwo));
+                }else{
+                    fragmentTransaction.replace(R.id.container, new FragmentOne());
+                }
+                fragmentTransaction.commit();
+                break;
 
             case R.id.btn_fragment_two:
-//
-//                fragmentTransaction=fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.container,fragmentTwo);
-//                fragmentTransaction.commit();
-//                break;
+               fragmentTransaction=fragmentManager.beginTransaction();
+                if(dataFromFragmentOne!=null){
+                    fragmentTransaction.replace(R.id.container, FragmentTwo.newInstance(dataFromFragmentOne));
+                }else{
+                    fragmentTransaction.replace(R.id.container, new FragmentTwo());
+                }
+                fragmentTransaction.commit();
+                break;
 
         }
     }
 
+    @Override
+    public void onSendDataFromFragmentTwo(String data) {
+        dataFromFragmentOne=data;
+
+    }
+
+    @Override
+    public void onSendDataFromFragmentOne(String data) {
+        dataFromFragmentTwo=data;
+    }
 }
